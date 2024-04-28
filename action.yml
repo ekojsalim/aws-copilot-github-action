@@ -1,0 +1,38 @@
+name: "AWS Copilot"
+description: "AWS Copilot GitHub Action"
+author: "smuada"
+inputs:
+  command:
+    required: true
+    description: "command"
+    default: "install"
+  app:
+    required: false
+    description: "application name"
+  env:
+    required: false
+    description: "environment name"
+  force:
+    required: false
+    default: "false"
+    description: "run force"
+  name:
+    required: false
+    description: "service name"
+  tag:
+    required: false
+    description: "ecr tag name"
+  resource-tags:
+    required: false
+    description: "resource tags, comma separated key=value pairs"
+  path:
+    required: false
+    description: "path name"
+
+runs:
+  using: "node20"
+  main: "dist/index.js"
+
+branding:
+  color: blue
+  icon: box

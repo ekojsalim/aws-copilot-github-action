@@ -1,0 +1,45 @@
+{
+  "name": "aws-copilot-github-action",
+  "version": "0.0.8",
+  "private": true,
+  "description": "AWS Copilot Github Action",
+  "main": "src/main.ts",
+  "scripts": {
+    "format": "biome format --write .",
+    "build": "ncc build --source-map --license licenses.txt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smuada/aws-copilot-github-action.git"
+  },
+  "keywords": [
+    "actions",
+    "node",
+    "aws",
+    "copilot",
+    "github",
+    "action",
+    "github-action",
+    "github-actions",
+    "github-actions-copilot",
+    "github-actions-copilot-aws",
+    "setup"
+  ],
+  "author": "smuada",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.10.1",
+    "@actions/exec": "^1.1.1",
+    "@actions/github": "^6.0.0",
+    "@actions/tool-cache": "^2.0.1"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.7.1",
+    "@types/node": "^20.12.7",
+    "@typescript-eslint/parser": "^7.7.1",
+    "@vercel/ncc": "^0.38.1",
+    "js-yaml": "^4.1.0",
+    "prettier": "3.2.5",
+    "typescript": "^5.4.5"
+  }
+}
