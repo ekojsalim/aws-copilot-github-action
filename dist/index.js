@@ -33202,14 +33202,16 @@ function deployApp() {
         if (!env) {
             throw new Error("Environment is required");
         }
-        const cmd = `copilot deploy \
-  --app ${app} \
-  --env ${env} \
-  ${name ? `--name ${name}` : ""} \
-  ${tag ? `--tag ${tag}` : ""} \
-  ${force ? "--force" : ""} \
-	${detach ? "--detach" : ""} \
-  ${resourceTags ? `--resource-tags ${resourceTags}` : ""}`;
+        const args = [
+            `--app ${app}`,
+            `--env ${env}`,
+            !!name && `--name ${name}`,
+            !!tag && `--tag ${tag}`,
+            force && "--force",
+            detach && "--detach",
+            !!resourceTags && `--resource-tags ${resourceTags}`,
+        ].filter(Boolean);
+        const cmd = `copilot deploy ${args.join(" ")}`;
         const deploy = yield (0, exec_1.exec)(cmd, [], { cwd: path });
         core.debug(`Deploying app ${app} to env ${env} ${force ? "with force" : ""} is done ${deploy}`);
         core.info("Copilot application deployed successfully");

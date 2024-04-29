@@ -140,14 +140,17 @@ async function deployApp(): Promise<void> {
     throw new Error("Environment is required");
   }
 
-  const cmd = `copilot deploy \
-  --app ${app} \
-  --env ${env} \
-  ${name ? `--name ${name}` : ""} \
-  ${tag ? `--tag ${tag}` : ""} \
-  ${force ? "--force" : ""} \
-	${detach ? "--detach" : ""} \
-  ${resourceTags ? `--resource-tags ${resourceTags}` : ""}`;
+  const args = [
+    `--app ${app}`,
+    `--env ${env}`,
+    !!name && `--name ${name}`,
+    !!tag && `--tag ${tag}`,
+    force && "--force",
+    detach && "--detach",
+    !!resourceTags && `--resource-tags ${resourceTags}`,
+  ].filter(Boolean);
+
+  const cmd = `copilot deploy ${args.join(" ")}`;
 
   const deploy = await exec(cmd, [], { cwd: path });
 
