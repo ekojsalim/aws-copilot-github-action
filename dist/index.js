@@ -33090,9 +33090,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(9093));
 const github = __importStar(__nccwpck_require__(5942));
-const os = __importStar(__nccwpck_require__(2037));
+const os = __importStar(__nccwpck_require__(612));
 const tool_cache_1 = __nccwpck_require__(5561);
-const fs_1 = __nccwpck_require__(7147);
+const node_fs_1 = __nccwpck_require__(7561);
 const exec_1 = __nccwpck_require__(7775);
 const COPILOT_CLI_TOOL_NAME = "aws-copilot-cli";
 run();
@@ -33137,7 +33137,7 @@ function install() {
         let cliPath = (0, tool_cache_1.find)(COPILOT_CLI_TOOL_NAME, version);
         if (!cliPath) {
             const downloadPath = yield (0, tool_cache_1.downloadTool)(packageUrl, COPILOT_CLI_TOOL_NAME);
-            (0, fs_1.chmodSync)(downloadPath, "755");
+            (0, node_fs_1.chmodSync)(downloadPath, "755");
             cliPath = yield (0, tool_cache_1.cacheFile)(downloadPath, "copilot", COPILOT_CLI_TOOL_NAME, version);
         }
         core.info(`Installing AWS Copilot CLI to ${cliPath}`);
@@ -33147,7 +33147,7 @@ function install() {
 }
 function getLatestVersion() {
     return __awaiter(this, void 0, void 0, function* () {
-        const token = process.env["GITHUB_TOKEN"];
+        const token = core.getInput("github-token");
         const octokit = github.getOctokit(token);
         const latestRelease = yield octokit.rest.repos.getLatestRelease({
             owner: "aws",
@@ -33194,6 +33194,7 @@ function deployApp() {
         const tag = core.getInput("tag");
         const resourceTags = core.getInput("resource-tags");
         const path = core.getInput("path") || ".";
+        const detach = core.getBooleanInput("detach");
         const force = core.getInput("force") === "true";
         if (!app) {
             throw new Error("App name is required");
@@ -33207,6 +33208,7 @@ function deployApp() {
   ${name ? `--name ${name}` : ""} \
   ${tag ? `--tag ${tag}` : ""} \
   ${force ? "--force" : ""} \
+	${detach ? "--detach" : ""} \
   ${resourceTags ? `--resource-tags ${resourceTags}` : ""}`;
         const deploy = yield (0, exec_1.exec)(cmd, [], { cwd: path });
         core.debug(`Deploying app ${app} to env ${env} ${force ? "with force" : ""} is done ${deploy}`);
@@ -33326,6 +33328,22 @@ module.exports = require("net");
 
 "use strict";
 module.exports = require("node:events");
+
+/***/ }),
+
+/***/ 7561:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:fs");
+
+/***/ }),
+
+/***/ 612:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:os");
 
 /***/ }),
 

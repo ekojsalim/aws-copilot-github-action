@@ -34,6 +34,10 @@ inputs:
     required: false
     default: "false"
     description: "Use the --force flag"
+  detach:
+    required: false
+    default: "true"
+    description: "Whether to run the copilot deploy command in detached mode"
 
 runs:
   using: "node20"
