@@ -6,7 +6,7 @@ This is a fork of [ksivamuthu/aws-copilot-github-action](https://github.com/ksiv
 
 1. To install copilot-cli in your github actions.
 
-```
+```yaml
   build:
     runs-on: ubuntu-latest
     steps:
@@ -16,7 +16,7 @@ This is a fork of [ksivamuthu/aws-copilot-github-action](https://github.com/ksiv
         with:
           role-to-assume: arn:aws:iam::111111111111:role/my-github-actions-role-test
           aws-region: us-east-1
-      - uses: ksivamuthu/aws-copilot-github-action@v0.0.8
+      - uses: ekojsalimm/aws-copilot-github-action@main
         with:
           command: install
       - run: |
@@ -25,7 +25,7 @@ This is a fork of [ksivamuthu/aws-copilot-github-action](https://github.com/ksiv
 
 2. To deploy the app
 
-```
+```yaml
   deploy:
     runs-on: ubuntu-latest
     steps:
@@ -35,12 +35,12 @@ This is a fork of [ksivamuthu/aws-copilot-github-action](https://github.com/ksiv
         with:
           role-to-assume: arn:aws:iam::111111111111:role/my-github-actions-role-test
           aws-region: us-east-1
-      - uses: ksivamuthu/aws-copilot-github-action@v0.0.8
+      - uses: ekojsalimm/aws-copilot-github-action@main
         with:
           command: deploy
           app: your-awesome-app
           env: prod
-          force: false # optional
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## Optional parameters
@@ -49,7 +49,7 @@ This is a fork of [ksivamuthu/aws-copilot-github-action](https://github.com/ksiv
 
 In the with attribute, the name value can be used to define the name of the job to be published
 
-```
+```yaml
   deploy:
     steps:
       - uses: smuada/aws-copilot-github-action@v0.0.1
@@ -64,7 +64,7 @@ In the with attribute, the name value can be used to define the name of the job 
 
 In the with attribute, the tag value can be used to define the tag image name
 
-```
+```yaml
   deploy:
     steps:
       - uses: smuada/aws-copilot-github-action@v0.0.1

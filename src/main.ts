@@ -65,7 +65,7 @@ async function install(): Promise<void> {
 }
 
 async function getLatestVersion(): Promise<string> {
-	const token = process.env["GITHUB_TOKEN"];
+	const token = core.getInput("github-token");
 	const octokit = github.getOctokit(token!);
 
 	const latestRelease = await octokit.rest.repos.getLatestRelease({

@@ -4,30 +4,36 @@ author: "ekojsalim"
 inputs:
   command:
     required: true
-    description: "command"
+    description: "The copilot command to run"
     default: "install"
   app:
     required: false
-    description: "application name"
+    description: "Application name"
   env:
     required: false
-    description: "environment name"
+    description: "Environment name"
+  name:
+    required: false
+    description: "Service name"
+  tag:
+    required: false
+    description: "ECR tag name"
+  resource-tags:
+    required: false
+    description: "Resource tags, comma-separated key-value pairs"
+  path:
+    required: false
+    description: "Path to the working directory"
+  github-token:
+    required: false
+    description: "GitHub token used to fetch latest copilot release. You must specify this or the version input."
+  version:
+    required: false
+    description: "Copilot version to install. You must specify this or the github-token input."
   force:
     required: false
     default: "false"
-    description: "run force"
-  name:
-    required: false
-    description: "service name"
-  tag:
-    required: false
-    description: "ecr tag name"
-  resource-tags:
-    required: false
-    description: "resource tags, comma separated key=value pairs"
-  path:
-    required: false
-    description: "path name"
+    description: "Use the --force flag"
 
 runs:
   using: "node20"
